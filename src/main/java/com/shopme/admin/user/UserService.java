@@ -75,6 +75,22 @@ public class UserService {
 		
 		return UseRepo.save(user);
 	}
+	public User updateAccount(User userInForm) {
+		User userInDB = UseRepo.findById(userInForm.getId()).get();
+		
+		if(!userInForm.getPassword().isEmpty()) {
+			userInDB.setPassword(userInForm.getPassword());
+			encodePassword(userInDB);
+		}
+		if(userInForm.getPhotos() != null) {
+			userInDB.setPhotos(userInForm.getPhotos());
+		}
+		
+		userInDB.setFirstName(userInForm.getFirstName());
+		userInDB.setLastName(userInForm.getLastName());
+		
+		return UseRepo.save(userInDB);
+	}
 	
 	private void encodePassword(User user) {
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -104,6 +120,14 @@ public class UserService {
 			return UseRepo.findById(id).get();
 		}catch(NoSuchElementException ex){
 			throw new UserNotFoudException("could not find any user with id " + id);
+		}
+
+	}
+	public User getUserByEmail(String  email) throws UserNotFoudException {
+		try {
+			return UseRepo.getUserByEmail(email);
+		}catch(NoSuchElementException ex){
+			throw new UserNotFoudException("could not find any user with email address " + email);
 		}
 
 	}
