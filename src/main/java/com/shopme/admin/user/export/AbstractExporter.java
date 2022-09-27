@@ -13,10 +13,10 @@ import com.shopme.common.entity.User;
 public class AbstractExporter {
 	
 
-	public void setResponseHeader(HttpServletResponse response,String contentType, String extension) throws IOException {
+	public void setResponseHeader(HttpServletResponse response,String contentType, String extension , String type) throws IOException {
 		DateFormat deDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 		String timeString = deDateFormat.format(new Date());
-		String fileName = "users_" + timeString + "." + extension;
+		String fileName = type + timeString + "." + extension;
 		
 		response.setContentType(contentType);
 		

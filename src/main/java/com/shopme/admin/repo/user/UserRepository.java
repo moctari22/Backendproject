@@ -1,4 +1,4 @@
-package com.shopme.admin.user.repo;
+package com.shopme.admin.repo.user;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

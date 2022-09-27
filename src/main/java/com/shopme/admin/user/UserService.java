@@ -12,8 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shopme.admin.user.repo.RoleRepository;
-import com.shopme.admin.user.repo.UserRepository;
+import com.shopme.admin.repo.user.RoleRepository;
+import com.shopme.admin.repo.user.UserRepository;
 import com.shopme.common.entity.Role;
 import com.shopme.common.entity.User;
 

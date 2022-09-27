@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @SpringBootApplication
-@EntityScan({"com.shopme.common.entity","com.shopme.admin.user"})
-@EnableJpaRepositories("com.shopme.admin.user.repo")
+@EntityScan({"com.shopme.common.entity","com.shopme.admin.user","com.shopme.admin.category"})
+@EnableJpaRepositories("com.shopme.admin.repo")
 //@ComponentScan({ "com.shopme.admin.user.repo","com.shopme.admin","com.shopme.common.entity"})
 public class ShopmeBackEndApplication {
 

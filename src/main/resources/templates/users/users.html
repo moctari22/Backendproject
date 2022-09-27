@@ -34,11 +34,11 @@
 			<table class="table table-bordered table-striped table-hover  table-responsive-xl">
 				<thead class="thead-dark">
 					<tr>
-					    <th th:replace="fragments :: column_link('id','USER ID')" />
+					    <th th:replace="fragments :: column_link('/users','id','USER ID')" />
 					    <th>Photos </th>
-		                <th th:replace="fragments :: column_link('email','EMAIL')" />
-			            <th th:replace="fragments :: column_link('firstName','FIRSTNAME')" />
-		                <th th:replace="fragments :: column_link('lastName','LASTNAME')" />
+		                <th th:replace="fragments :: column_link('/users','email','EMAIL')" />
+			            <th th:replace="fragments :: column_link('/users','firstName','FIRSTNAME')" />
+		                <th th:replace="fragments :: column_link('/users','lastName','LASTNAME')" />
 		                
 					    <th>Roles</th>
 						<th>Enabled</th>
@@ -58,14 +58,7 @@
 						<td>[[${user.lastName}]]</td>
 						<td>[[${user.roles}]]</td>
 						<td> 
-							<a th:if="${user.enabled == true}" 
-							class="fas fa-check-circle fa-2x icon-green" 
-							th:href="@{'/users/' + ${user.id} + '/enabled/false'}"
-							title="disabled"></a>
-							<a th:if="${user.enabled == false}" 
-							class="fas fa-circle fa-2x icon-dark" 
-							th:href="@{'/users/' + ${user.id} + '/enabled/true'}"
-							title="enabled"></a>
+							<div th:replace="fragments2::status(${user.enabled},'user' , '/users/' + ${user.id})">
 						</td>
 						<td>
 						<a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}" title="edit this user"></a>
@@ -109,34 +102,9 @@
 				<div>&nbsp;</div>
 			</div>
 		</div>
-		<div class="text-center m-1" th:if="${totalItems > 0}">
-			<span>Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
-		</div>
-		<div class="text-center m-1" th:unless="${totalItems > 0}">
-			<span> Now users found</span>
-		</div>
-		<div >
-			<nav th:if="${totalPages> 1}">
-			  <ul class="pagination justify-content-center flex-wrap">
-			    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-			    	<a th:replace="fragments :: page_link(1,'First')" > </a>
-			    </li>
-			    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-			       <a th:replace="fragments :: page_link(${currentPage-1 },'Previous')" > </a>
-			    </li>
-			    <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}" 
-			    	th:each="i : ${#numbers.sequence(1,totalPages)}">
-			    	<a th:replace="fragments :: page_link(${i},${i})"> </a>		    	
-			    </li>
-  				<li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-  					<a th:replace="fragments :: page_link(${currentPage+1},'Next')"> </a>
-			    </li>
-			    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-			        <a th:replace="fragments :: page_link(${totalPages},'Last')"> </a>
-			    </li>
-			  </ul>
-			</nav>
-		</div>
+    <div th:replace="fragments2::pagination('/users','users')">
+    
+    
 		<div class="modal fade text-center" id="confirmModal">
 			<div class="modal-dialog">
 				<div class="modal-content" >
