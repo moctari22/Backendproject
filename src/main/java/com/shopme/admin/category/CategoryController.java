@@ -116,7 +116,7 @@ public class CategoryController {
 		
 		try {
 			service.delete(id);
-			String categoryDir = "../category-omages/"+id;
+			String categoryDir = "../category-images/"+id;
 			FileUploadUtil.removeDir(categoryDir);
 			redirectAttributes.addFlashAttribute("message", "La categorie a été supprimé avec succès id_category : " + id);
 			
