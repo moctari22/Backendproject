@@ -34,9 +34,9 @@
 			<table class="table table-bordered table-striped table-hover  table-responsive-xl">
 				<thead class="thead-dark">
 					<tr>
-					    <th> Brand ID </th>
+					    <th th:replace="fragments2 :: column_link('/brands','id','Brand ID')" />  
 					    <th>Logo</th>
-		                <th> Brand Name </th>	                
+					    <th th:replace="fragments2 :: column_link('/brands','name','Brand Name')" />                  
 						<th> Categories </th>
 						<th>  </th>
 					</tr>
@@ -59,7 +59,7 @@
 						<td>
 						<a class="fas fa-edit fa-2x icon-green" th:href="@{'/brands/edit/' + ${brand.id}}" title="edit this brand"></a>
 						&nbsp; 
-						<a class="fa-sharp fa-solid fa-trash fa-2x icon-red link-delete" 
+						<a class="fa-sharp fa-solid fa-trash fa-2x icon-red link-del" 
 						th:href="@{'/brands/delete/' + ${brand.id}}" 
 						th:brandId="${brand.id}"
 						title="delete this brand"></a>
@@ -68,7 +68,27 @@
 				</tbody>
 			</table>
 		</div>
-  
+	 		<div class="less-details">
+			<div  th:each = "brand : ${listBrands}" class="row m-1">
+				<div class="col-4">
+					<span th:if="${brand.logo == null}" class="fas fa-portrait fa-3x icon-silver"></span> 
+				    <img th:if="${brand.logo != null}" th:src="@{'/brand-images/' + ${brand.id}  + '/' + ${brand.logo}}" style="width: 80px"> 
+				</div>
+				<div class="col-8">
+					<div>[[${brand.name}]]</div>
+					<div class="mt-2">
+						<a class="fas fa-edit fa-2x icon-green" th:href="@{'/brands/edit/' + ${brand.id}}" title="edit this brand"></a>
+						&nbsp; 
+						<a class="fa-sharp fa-solid fa-trash fa-2x icon-red link-del" 
+						th:href="@{'/brands/delete/' + ${brand.id}}" 
+						th:brandId="${brand.id}"
+						title="delete this brand"></a>
+					</div>
+				</div>
+				<div>&nbsp;</div>
+			</div>
+		</div>
+      <div th:replace="fragments2::pagination('/brands','Brands')">
 		<div class="modal fade text-center" id="confirmModal">
 			<div class="modal-dialog">
 				<div class="modal-content" >
@@ -94,7 +114,7 @@
 	</div>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(".link-delete").on("click",function(e){
+		$(".link-del").on("click",function(e){
 			e.preventDefault();
 			link = $(this);
 			brandId=link.attr("brandId");
