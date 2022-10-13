@@ -95,7 +95,36 @@
 			</div>
 		</div>
 		
-     <div th:replace="fragments2::pagination('/categories','Top Category Level')">
+          <div>
+		<div class="text-center m-1" th:if="${totalItems > 0}">
+				<span>Showing Top categories Level # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
+			</div>
+			<div class="text-center m-1" th:unless="${totalItems > 0}">
+				<span> Not Top categories found</span>
+			</div>
+			<div th:if="${totalPages> 1}" >
+				<nav >
+				  <ul class="pagination justify-content-center flex-wrap">
+				    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+				    	<a th:replace="fragments2 :: page_link('/categories',1,'First')" > </a>
+				    </li>
+				    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+				       <a th:replace="fragments2 :: page_link('/categories',${currentPage-1 },'Previous')" > </a>
+				    </li>
+				    <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}" 
+				    	th:each="i : ${#numbers.sequence(1,totalPages)}">
+				    	<a th:replace="fragments2 :: page_link('/categories',${i},${i})"> </a>		    	
+				    </li>
+	  				<li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+	  					<a th:replace="fragments2 :: page_link('/categories',${currentPage+1},'Next')"> </a>
+				    </li>
+				    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+				        <a th:replace="fragments2 :: page_link('/categories',${totalPages},'Last')"> </a>
+				    </li>
+				  </ul>
+				</nav>
+			</div>
+      </div>
      
      
 		<div class="modal fade text-center" id="confirmModal">
